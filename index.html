@@ -10,12 +10,13 @@
       padding: 0;
       box-sizing: border-box;
     }
+
     html, body {
       height: 100%;
       width: 100%;
-      overflow: hidden;
-      background: black;
       font-family: 'Segoe UI', sans-serif;
+      background: #000;
+      overflow: hidden;
     }
 
     .slideshow-container {
@@ -40,33 +41,40 @@
 
     .text-overlay {
       position: absolute;
-      bottom: 30px;
+      bottom: 5%;
       width: 100%;
       text-align: center;
-      color: #fff;
-      font-size: 3em;
+      color: white;
+      font-size: 5vw;
       text-shadow: 2px 2px 20px red;
-      animation: glow 2s infinite ease-in-out;
+      animation: glow 2s ease-in-out infinite;
     }
 
     @keyframes glow {
       0%, 100% { opacity: 0.8; }
       50% { opacity: 1; transform: scale(1.05); }
     }
+
+    /* Responsive font size fallback */
+    @media (max-width: 600px) {
+      .text-overlay {
+        font-size: 7vw;
+      }
+    }
   </style>
 </head>
 <body>
 
   <div class="slideshow-container">
-    <img class="slide" src="p1.jpg" />
-    <img class="slide" src="p2.jpg" />
-    <img class="slide" src="p3.jpg" />
-    <img class="slide" src="p4.jpg" />
-    <img class="slide" src="p5.jpg" />
+    <img class="slide" src="p1.jpg" alt="Photo 1"/>
+    <img class="slide" src="p2.jpg" alt="Photo 2"/>
+    <img class="slide" src="p3.jpg" alt="Photo 3"/>
+    <img class="slide" src="p4.jpg" alt="Photo 4"/>
+    <img class="slide" src="p5.jpg" alt="Photo 5"/>
     <div class="text-overlay">❤️ Happy Anniversary ❤️</div>
   </div>
 
-  <!-- Background music (autoplay + loop) -->
+  <!-- Background music -->
   <audio id="bgMusic" autoplay loop>
     <source src="romantic.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
@@ -83,20 +91,21 @@
       slideIndex++;
       if (slideIndex > slides.length) slideIndex = 1;
       slides[slideIndex - 1].style.display = "block";
-      setTimeout(showSlides, 3000); // next slide every 3 seconds
+      setTimeout(showSlides, 3000); // 3 sec per slide
     }
 
     window.onload = () => {
       showSlides();
 
-      // Fix autoplay issue in some browsers
+      // Allow audio to play on user interaction if blocked
       const music = document.getElementById("bgMusic");
       const playMusic = () => {
         music.play();
         document.removeEventListener("click", playMusic);
       };
-      document.addEventListener("click", playMusic); // starts music on first click
+      document.addEventListener("click", playMusic);
     };
   </script>
+
 </body>
 </html>
